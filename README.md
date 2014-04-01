@@ -1,14 +1,14 @@
-enable-fallout
+enable_fallout
 ============
 
 This program is designed to enable fallout for orders contained in a CSV file for Gracy Title.
-The expected format of the CSV files is "Order Number","County Name".  Fallout is disabled  
-in TIMS by updating the OMFOFLG flag to "N"
+The expected format of the CSV files is "Order Number","County Name".  Fallout is enabled  
+in TIMS by updating the OMFOFLG flag to "Y"
 
 Building
 --------
 
-This project uses the Simple Build Tool 11.3 to perform the build and includes the 
+This project uses the Simple Build Tool .13 to perform the build and includes the 
 sbt-assembly plugin to create one JAR file containing all of the dependencies.  This is 
 accomplished by running the assembly task from within SBT.
 
