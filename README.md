@@ -8,7 +8,7 @@ in TIMS by updating the OMFOFLG flag to "Y"
 Building
 --------
 
-This project uses the Simple Build Tool .13 to perform the build and includes the 
+This project uses the Simple Build Tool 0.13 to perform the build and includes the 
 sbt-assembly plugin to create one JAR file containing all of the dependencies.  This is 
 accomplished by running the assembly task from within SBT.
 
@@ -25,7 +25,7 @@ to Austin Data's county codes.  e.g. "Travis County" becomes "TR".  If any count
 to match, a warning is logged for this entry.
 
 Before fallout is enabled, this program first checks that it exists in TIMS and verifies 
-it is currently enabled.  If the order does not exist or has the fallout flag set to a status 
+it is currently disabled.  If the order does not exist or has the fallout flag set to a status 
 other than "N", a warning is generated.
 
 When an order exists in TIMS and the fallout flag is "N", it is changed to "Y"
