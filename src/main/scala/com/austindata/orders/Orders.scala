@@ -90,7 +90,7 @@ class EnableFallout(fileName: String) extends Logging {
       Array(cntyCode, companyCode, fmtOrderNum))
 
     records match {
-      case None => logger warn ("Order Not Found: " + orderNumber + "," + companyCode + "," + cntyCode)
+      case None => logger error ("Order Not Found: " + orderNumber + "," + companyCode + "," + cntyCode)
       case Some(listRecords) => {
         for (record <- listRecords) {
           val status = record.getField("OMFOFLG").asInstanceOf[String].toUpperCase.trim
@@ -105,7 +105,7 @@ class EnableFallout(fileName: String) extends Logging {
               case None => logger error ("Failed to Update Order: " + orderNumber + "," + companyCode + "," + cntyCode)
               case Some(x) => logger info ("Enabled Fallout for Order: " + orderNumber + "," + companyCode + "," + cntyCode)
             }
-          } else logger warn ("Fallout Not Enabled: " + orderNumber + "," + companyCode + "," + cntyCode + "," + status)
+          } else logger warn ("Fallout Already Enabled: " + orderNumber + "," + companyCode + "," + cntyCode + "," + status)
         }
       }
     }
