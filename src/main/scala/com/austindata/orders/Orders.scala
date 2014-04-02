@@ -93,7 +93,7 @@ class EnableFallout(fileName: String) extends Logging {
       case None => logger warn ("Order Not Found: " + orderNumber + "," + companyCode + "," + cntyCode)
       case Some(listRecords) => {
         for (record <- listRecords) {
-          val status = record.getField("OMFOFLG").asInstanceOf[String].trim
+          val status = record.getField("OMFOFLG").asInstanceOf[String].toUpperCase.trim
 
           if (status == "N") { // Attempt to enable fallout
             record.setField("OMFOFLG", "Y")
