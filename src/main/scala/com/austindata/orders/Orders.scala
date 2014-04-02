@@ -27,7 +27,7 @@ object Driver extends Logging {
       System.exit(0)
     }
     // Process only csv file in the array
-    logger info ("Processing CSV File: " + files(0))
+    logger info ("Processing CSV File:, " + files(0))
     EnableFallout(files(0))
   }
 }
@@ -65,7 +65,7 @@ class EnableFallout(fileName: String) extends Logging {
 
   for (csvOrder <- csvEntries) {
     csvOrder county match {
-      case None => logger warn ("Invalid County for Order: " + csvOrder.order)
+      case None => logger error (",Invalid County for Order:, " + csvOrder.order)
       case Some(x) => {
         enableFallout(csvOrder.order, x)
       }
@@ -80,7 +80,7 @@ class EnableFallout(fileName: String) extends Logging {
    * @param cntyCode the TIMS County Code
    */
   private def enableFallout(orderNumber: String, cntyCode: String) {
-    logger debug ("Attempting to Enable Fallout: " + orderNumber + "," + companyCode + "," + cntyCode)
+    logger debug (",Attempting to Enable Fallout:, " + orderNumber + "," + companyCode + "," + cntyCode)
 
     // Format the order number for TIMS
     val fmtOrderNum = EnableFallout.formatOrderNum(orderNumber)
@@ -90,7 +90,7 @@ class EnableFallout(fileName: String) extends Logging {
       Array(cntyCode, companyCode, fmtOrderNum))
 
     records match {
-      case None => logger error ("Order Not Found: " + orderNumber + "," + companyCode + "," + cntyCode)
+      case None => logger error (",Order Not Found:, " + orderNumber + "," + companyCode + "," + cntyCode)
       case Some(listRecords) => {
         for (record <- listRecords) {
           val status = record.getField("OMFOFLG").asInstanceOf[String].toUpperCase.trim
@@ -102,10 +102,10 @@ class EnableFallout(fileName: String) extends Logging {
               Array(cntyCode, companyCode, fmtOrderNum), record)
 
             success match { // Error handling in case the update fails
-              case None => logger error ("Failed to Update Order: " + orderNumber + "," + companyCode + "," + cntyCode)
-              case Some(x) => logger info ("Enabled Fallout for Order: " + orderNumber + "," + companyCode + "," + cntyCode)
+              case None => logger error (",Failed to Update Order:, " + orderNumber + "," + companyCode + "," + cntyCode)
+              case Some(x) => logger info (",Enabled Fallout for Order:, " + orderNumber + "," + companyCode + "," + cntyCode)
             }
-          } else logger warn ("Fallout Already Enabled: " + orderNumber + "," + companyCode + "," + cntyCode + "," + status)
+          } else logger warn (",Fallout Already Enabled:, " + orderNumber + "," + companyCode + "," + cntyCode + "," + status)
         }
       }
     }
